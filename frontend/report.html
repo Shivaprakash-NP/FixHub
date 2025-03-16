@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixHub  - Report an Issue</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="public/styles/report.css">
+</head>
+<body>
+  <header>
+    <h1>Report an Issue</h1>
+  </header>
+  <div class="container">
+    <h2>Provide Issue Details</h2>
+    <form action="/submitIssue" method="post" enctype="multipart/form-data">
+      <label for="title">Issue Title</label>
+      <input type="text" id="title" name="title" placeholder="Enter a short title for the issue" required>
+      
+      <label for="category">Category</label>
+      <select id="category" name="category" required>
+        <option value="" disabled selected>Select a category</option>
+        <option value="pothole">Pothole</option>
+        <option value="streetlight">Broken Streetlight</option>
+        <option value="garbage">Garbage Issue</option>
+        <option value="water">Water Leakage</option>
+        <option value="other">Other</option>
+      </select>
+      
+      <label for="description">Issue Description</label>
+      <textarea id="description" name="description" rows="5" placeholder="Provide detailed information about the issue" required></textarea>
+      
+      <label for="location">Location (Address/Intersection)</label>
+      <input type="text" id="location" name="location" placeholder="Enter location details" required>
+      
+      <label for="map">Select Location on Map</label>
+      <div id="map"></div>
+      <input type="hidden" id="lat" name="latitude">
+      <input type="hidden" id="lng" name="longitude">
+      
+      <label for="image">Upload an Image (Optional)</label>
+      <input type="file" id="image" name="image" accept="image/*">
+      
+      <button type="submit">Submit Issue</button>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([13.0827, 80.2707], 12); // Chennai, Tamil Nadu
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
+    
+    var marker;
+    function onMapClick(e) {
+      if (marker) {
+        map.removeLayer(marker);
+      }
+      marker = L.marker(e.latlng).addTo(map);
+      document.getElementById('lat').value = e.latlng.lat;
+      document.getElementById('lng').value = e.latlng.lng;
+    }
+    map.on('click', onMapClick);
+  </script>
+</body>
+</html>

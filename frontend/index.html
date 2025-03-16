@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixHub - Home</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/styles/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>FixHub</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="report.html">Report Issue</a>
+        <a href="upvote.html">Upvote Reports</a>
+        <a href="/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <!-- This heading will be updated with the user's name -->
+      <h2 id="heroWelcome">Welcome to FixHub</h2>
+      <p>Empower Your Community by Reporting and Upvoting Issues</p>
+      <a href="report.html" class="cta-btn">Report an Issue</a>
+    </div>
+  </section>
+
+  <section class="latest-issues">
+    <div class="section-header">
+      <h3>Latest Reports</h3>
+    </div>
+
+    <div class="issues-container" id="issuesContainer">
+
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="section-header">
+      <h3>How It Works</h3>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h4>Report</h4>
+        <p>Submit a detailed report with location, images, and more.</p>
+      </div>
+      <div class="step">
+        <h4>Upvote</h4>
+        <p>Community members upvote issues to prioritize the most critical ones.</p>
+      </div>
+      <div class="step">
+        <h4>Resolve</h4>
+        <p>Local authorities review the reports and work on solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 FixHub. All rights reserved.</p>
+  </footer>
+
+  <script src="public/scripts/latest-issues.js"></script>
+  <script>
+    fetch('/api/user')
+      .then(response => response.json())
+      .then(data => {
+         if (data.user && data.user.name) {
+             document.getElementById('heroWelcome').textContent = `Welcome, ${data.user.name}`;
+         }
+      })
+      .catch(err => console.error('Error fetching user data:', err));
+  </script>
+</body>
+</html>

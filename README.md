@@ -83,10 +83,6 @@ Contributions are what make the open-source community such an amazing place to l
    ```
 5. Open a Pull Request.
 
-## License
-
-This project is licensed under the MIT License.
-
 ## Contact
 
 For any questions, please reach out at shivaprakashnp1@gmail.com.
